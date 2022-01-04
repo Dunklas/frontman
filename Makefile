@@ -6,3 +6,5 @@ start:
 stop:
 	docker-compose stop
 
+generate-certs:
+	python3 generate-certs.py
