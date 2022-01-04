@@ -7,4 +7,15 @@ stop:
 	docker-compose stop
 
 generate-certs:
-	python3 generate-certs.py
+	MISSING_CERTS=$$(python3 print-missing-certs.py); \
+	if [ -z "$$MISSING_CERTS" ]; then \
+		echo "Found no certificates to generate"; \
+	else \
+		docker run certbot/certbot certonly \
+			--domains "$$MISSING_CERTS" \
+			--non-interactive \
+			--standalone \
+			--agree-tos \
+			--register-unsafely-without-email \
+			--dry-run; \
+	fi;

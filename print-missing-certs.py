@@ -15,10 +15,4 @@ with open("servers.json") as f:
     https_servers = filter(is_https, servers_input)
     https_server_names = map(lambda https_server: https_server['server_name'], https_servers)
     missing_certs = list(filter(cert_missing, https_server_names))
-
-    if not missing_certs:
-        print("Found no missing certificates")
-        sys.exit(0)
-    
-    domains = ",".join(missing_certs)
-    os.system("docker run certbot/certbot certonly --domains {} --non-interactive --standalone --agree-tos --register-unsafely-without-email --dry-run".format(missing_certs))
+    print(",".join(missing_certs))
