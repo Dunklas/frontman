@@ -11,7 +11,7 @@ generate-certs:
 	if [ -z "$$MISSING_CERTS" ]; then \
 		echo "Found no certificates to generate"; \
 	else \
-		docker-compose run certbot --service-ports certonly \
+		docker-compose run --service-ports certbot certonly \
 			--domains "$$MISSING_CERTS" \
 			--non-interactive \
 			--standalone \
