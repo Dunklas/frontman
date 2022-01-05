@@ -1,7 +1,7 @@
 start:
 	if [ -e nginx.conf ]; then mv nginx.conf nginx.conf.bak; fi;
 	python3 generate-conf.py
-	docker-compose up --build -d
+	docker-compose up --build --detach
 
 stop:
 	docker-compose stop
@@ -20,5 +20,9 @@ generate-certs:
 			--standalone \
 			--agree-tos \
 			--register-unsafely-without-email \
-			--dry-run ; \
+			--dry-run; \
 	fi;
+
+renew-certs:
+	docker-compose run --service-ports certbot renew \
+		--dry-run; \
