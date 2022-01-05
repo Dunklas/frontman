@@ -19,8 +19,7 @@ generate-certs:
 			--non-interactive \
 			--standalone \
 			--agree-tos \
-			--register-unsafely-without-email \
-			--dry-run; \
+			--register-unsafely-without-email; \
 	fi;
 
 renew-certs:
