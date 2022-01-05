@@ -6,6 +6,9 @@ start:
 stop:
 	docker-compose stop
 
+validate-certs:
+	python3 validate-certs.py
+
 generate-certs:
 	MISSING_CERTS=$$(python3 print-missing-certs.py); \
 	if [ -z "$$MISSING_CERTS" ]; then \
