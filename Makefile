@@ -20,7 +20,7 @@ generate-certs:
 			--standalone \
 			--agree-tos \
 			--register-unsafely-without-email \
-			--dry-run;
+			--dry-run; \
 	fi;
 
 renew-certs:
