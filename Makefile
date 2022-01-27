@@ -11,14 +11,16 @@ validate-certs:
 
 generate-certs:
 	HTTPS_DOMAINS=$$(python3 print-https-certs.py); \
-	if [ -z "$$HTTPS_DOMAINS" ]; then \
-		echo "Found no domains to generate certificates for"; \
-	else \
-		for domain in $${HTTPS_DOMAINS//,/ }; \
-		do \
-		echo "$$domain"; \
-		done \
-	fi;
+	for domain in $${HTTPS_DOMAINS//,/ }; \
+	do \
+		docker-compose run --service-ports certbot certonly \
+			--domains "$$domain" \
+			--non-interactive \
+			--standalone \
+			--agree-tos \
+			--register-unsafely-without-email \
+			--dry-run; \
+	done \
 
 renew-certs:
 	docker-compose run --service-ports certbot renew
