@@ -10,17 +10,14 @@ validate-certs:
 	python3 validate-certs.py
 
 generate-certs:
-	MISSING_CERTS=$$(python3 print-missing-certs.py); \
-	if [ -z "$$MISSING_CERTS" ]; then \
-		echo "Found no certificates to generate"; \
+	HTTPS_DOMAINS=$$(python3 print-https-certs.py); \
+	if [ -z "$$HTTPS_DOMAINS" ]; then \
+		echo "Found no domains to generate certificates for"; \
 	else \
-		docker-compose run --service-ports certbot certonly \
-			--domains "$$MISSING_CERTS" \
-			--non-interactive \
-			--standalone \
-			--agree-tos \
-			--register-unsafely-without-email \
-			--dry-run; \
+		for domain in $${HTTPS_DOMAINS//,/ }; \
+		do \
+		echo "$$domain"; \
+		done \
 	fi;
 
 renew-certs:
