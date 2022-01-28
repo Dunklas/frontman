@@ -17,6 +17,7 @@ generate-certs:
 	do \
 		docker-compose run --service-ports certbot certonly \
 			--domains "$$domain" \
+			--cert-name "$$domain" \
 			--non-interactive \
 			--standalone \
 			--agree-tos \
