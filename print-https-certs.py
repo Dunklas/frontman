@@ -1,3 +1,3 @@
-from cert_utils import https_certs
+from cert_utils import https_domains
 
-print(",".join(https_certs()))
+print(",".join(https_domains()))
